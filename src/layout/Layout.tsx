@@ -1,6 +1,7 @@
 import React, { lazy, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Navs } from "./types";
+import Index from "../pages/index/Index";
 
 const Header = lazy(() => import("./components/Header"));
 
@@ -13,6 +14,10 @@ const useNavs = () => {
     {
       label: "文章",
       path: "/articles",
+    },
+    {
+      label: "关于",
+      path: "/about",
     },
   ]);
   const [navIndex, setNavIndex] = useState(0);
@@ -29,8 +34,11 @@ const Layout = (): JSX.Element => {
 
   return (
     <>
+      {" "}
       <CssBaseline />
       <Header navs={navs} navIndex={navIndex} setNavIndex={setNavIndex} />
+      <Index />
+      {/*<Error status={404} href="/" msg="This page could not be found." />*/}
     </>
   );
 };
