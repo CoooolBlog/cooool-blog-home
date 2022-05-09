@@ -1,7 +1,14 @@
-import React, { lazy, useState } from "react";
+/*
+ * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ * Use of this source code is governed by a MIT style
+ * license that can be found in the LICENSE file.
+ */
+
+import React, {lazy, useState} from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Navs } from "./types";
-import Index from "../pages/index/Index";
+import {Navs} from "./types";
+import Route from "../router/router";
+import {useNavigate} from "react-router-dom";
 
 const Header = lazy(() => import("./components/Header"));
 
@@ -13,7 +20,7 @@ const useNavs = () => {
     },
     {
       label: "文章",
-      path: "/articles",
+      path: "/article",
     },
     {
       label: "关于",
@@ -21,24 +28,31 @@ const useNavs = () => {
     },
   ]);
   const [navIndex, setNavIndex] = useState(0);
+  const navigate = useNavigate();
+  const handleChangeNav = (index: number) => {
+    setNavIndex(index);
+    navigate(navs[index].path);
+  };
 
   return {
     navs,
     navIndex,
-    setNavIndex,
+    handleChangeNav,
   };
 };
 
 const Layout = (): JSX.Element => {
-  const { navs, navIndex, setNavIndex } = useNavs();
+  const { navs, navIndex, handleChangeNav } = useNavs();
 
   return (
     <>
-      {" "}
       <CssBaseline />
-      <Header navs={navs} navIndex={navIndex} setNavIndex={setNavIndex} />
-      <Index />
-      {/*<Error status={404} href="/" msg="This page could not be found." />*/}
+      <Header
+        navs={navs}
+        navIndex={navIndex}
+        handleChangeNav={handleChangeNav}
+      />
+      <Route />
     </>
   );
 };

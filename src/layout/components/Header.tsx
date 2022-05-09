@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+/*
+ * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ * Use of this source code is governed by a MIT style
+ * license that can be found in the LICENSE file.
+ */
+
+import React, {useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,14 +13,14 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styled from "@emotion/styled";
-import { Navs } from "../types";
+import {Navs} from "../types";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface Props {
   navs: Navs;
   navIndex: number;
-  setNavIndex: React.Dispatch<React.SetStateAction<number>>;
+  handleChangeNav: (index: number) => void;
 }
 
 const Nav = styled(Button)`
@@ -25,10 +31,7 @@ const NavBar = styled(AppBar)`
   background-color: #000;
 `;
 
-const PCAppBar = ({ navs, navIndex, setNavIndex }: Props) => {
-  const handleChange = (val: number) => {
-    setNavIndex(val);
-  };
+const PCAppBar = ({ navs, navIndex, handleChangeNav }: Props) => {
   const display = {
     xs: "none",
     sm: "flex",
@@ -45,7 +48,7 @@ const PCAppBar = ({ navs, navIndex, setNavIndex }: Props) => {
                 key={index}
                 size={navIndex == index ? "large" : "medium"}
                 sx={{ color: "#fff" }}
-                onClick={() => handleChange(index)}
+                onClick={() => handleChangeNav(index)}
               >
                 {el.label}
               </Nav>
@@ -58,11 +61,7 @@ const PCAppBar = ({ navs, navIndex, setNavIndex }: Props) => {
   );
 };
 
-const MobileAppBar = ({ navs, setNavIndex }: Props) => {
-  const handleChange = (val: number) => {
-    setNavIndex(val);
-  };
-
+const MobileAppBar = ({ navs, handleChangeNav }: Props) => {
   const [menu, setMenu] = useState<null | HTMLElement>(null);
 
   const handleOpenMenu = (ev: React.MouseEvent<HTMLElement>) => {
@@ -74,7 +73,7 @@ const MobileAppBar = ({ navs, setNavIndex }: Props) => {
   };
 
   const handleClickNav = (index: number) => {
-    handleChange(index);
+    handleChangeNav(index);
     handleCloseMenu();
   };
 

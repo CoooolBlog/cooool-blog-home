@@ -1,8 +1,14 @@
-import { Container } from "@mui/material";
+/*
+ * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ * Use of this source code is governed by a MIT style
+ * license that can be found in the LICENSE file.
+ */
+
+import {Container} from "@mui/material";
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "@emotion/styled";
-import { Articles, Category as CategoryType, Tags } from "./types";
+import {Articles, Category as CategoryType, Tags} from "./types";
 import TopArticles from "./components/TopArticles";
 import FloatingPlate from "./components/FloatingPlate";
 
@@ -67,19 +73,19 @@ const useCategory = () => {
     },
 
     {
-      id: 3,
+      id: 7,
       label: "Golang",
     },
     {
-      id: 4,
+      id: 8,
       label: "JavaScript",
     },
     {
-      id: 5,
+      id: 9,
       label: "Golang",
     },
     {
-      id: 6,
+      id: 10,
       label: "Golang",
     },
   ]);
@@ -116,19 +122,19 @@ const useTags = () => {
     },
 
     {
-      id: 3,
+      id: 7,
       label: "Golang",
     },
     {
-      id: 4,
+      id: 8,
       label: "JavaScript",
     },
     {
-      id: 5,
+      id: 9,
       label: "Golang",
     },
     {
-      id: 6,
+      id: 10,
       label: "Golang",
     },
   ]);
@@ -146,8 +152,8 @@ const Index = () => {
       <RowWarp>
         <TopArticles articles={articles} />
         <ColumnWarp sx={{ display: { xs: "none", sm: "flex" } }}>
-          <FloatingPlate list={category} title={"文章分类"} />
-          <FloatingPlate list={tags} title={"标签分类"} />
+          <FloatingPlate list={category} title={"推荐分类"} />
+          <FloatingPlate list={tags} title={"推荐标签"} />
         </ColumnWarp>
       </RowWarp>
     </Container>
