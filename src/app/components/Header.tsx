@@ -1,10 +1,10 @@
 /*
- * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
- * Use of this source code is governed by a MIT style
- * license that can be found in the LICENSE file.
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
  */
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,15 +13,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import styled from "@emotion/styled";
-import {Navs} from "../types";
+import { Navs } from "../types";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-
-interface Props {
-  navs: Navs;
-  navIndex: number;
-  handleChangeNav: (index: number) => void;
-}
 
 const Nav = styled(Button)`
   margin: 0 5px;
@@ -30,6 +24,12 @@ const Nav = styled(Button)`
 const NavBar = styled(AppBar)`
   background-color: #000;
 `;
+
+interface Props {
+  navs: Navs;
+  navIndex: number;
+  handleChangeNav: (index: number) => void;
+}
 
 const PCAppBar = ({ navs, navIndex, handleChangeNav }: Props) => {
   const display = {

@@ -1,22 +1,15 @@
 /*
- * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
- * Use of this source code is governed by a MIT style
- * license that can be found in the LICENSE file.
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
  */
 
-import {Container} from "@mui/material";
-import Box from "@mui/material/Box";
-import React, {useState} from "react";
+import React, { useState } from "react";
+import BaseWarp from "../../components/BaseWarp/BaseWarp";
+import ArticleList from "../../components/Article/ArticleList";
 import styled from "@emotion/styled";
-import {Articles, Category as CategoryType, Tags} from "./types";
-import TopArticles from "./components/TopArticles";
-import FloatingPlate from "./components/FloatingPlate";
-
-const RowWarp = styled(Box)`
-  margin: 30px 0;
-  display: flex;
-  align-items: flex-start;
-`;
+import Box from "@mui/material/Box";
+import Plate from "../../components/Plate/Plate";
 
 const ColumnWarp = styled(Box)`
   display: flex;
@@ -26,7 +19,7 @@ const ColumnWarp = styled(Box)`
 `;
 
 const useArticles = () => {
-  const [articles, setArticles] = useState<Articles>([
+  const [articles, setArticles] = useState([
     {
       id: 1,
       label: "Golang",
@@ -45,7 +38,7 @@ const useArticles = () => {
 };
 
 const useCategory = () => {
-  const [category, setCategory] = useState<CategoryType>([
+  const [category, setCategory] = useState([
     {
       id: 1,
       label: "Java",
@@ -94,7 +87,7 @@ const useCategory = () => {
 };
 
 const useTags = () => {
-  const [tags, setTags] = useState<Tags>([
+  const [tags, setTags] = useState([
     {
       id: 1,
       label: "Java",
@@ -148,15 +141,13 @@ const Index = () => {
   const { tags } = useTags();
 
   return (
-    <Container>
-      <RowWarp>
-        <TopArticles articles={articles} />
-        <ColumnWarp sx={{ display: { xs: "none", sm: "flex" } }}>
-          <FloatingPlate list={category} title={"推荐分类"} />
-          <FloatingPlate list={tags} title={"推荐标签"} />
-        </ColumnWarp>
-      </RowWarp>
-    </Container>
+    <BaseWarp>
+      <ArticleList articles={articles} />
+      <ColumnWarp>
+        <Plate list={category} title={"文章分类"} />
+        <Plate list={tags} title={"文章标签"} />
+      </ColumnWarp>
+    </BaseWarp>
   );
 };
 

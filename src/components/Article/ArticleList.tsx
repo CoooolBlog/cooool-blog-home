@@ -1,28 +1,29 @@
+/*
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
+ */
+
 import React from "react";
 import Paper from "@mui/material/Paper";
-import { Article as ArticleItem, Articles } from "../types";
-import Article from "./Article";
+import { Article as ArticleItem, Articles } from "./types";
+import Article from "./ArticleItem";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import BasePagination from "../../../components/Pagination/Pagination";
 
 const styles = {
   padding: "20px",
 };
 
 const Header = styled(Box)`
-  ${styles}
+  padding: 15px 20px;
 `;
 
 const Container = styled(Stack)`
-  ${styles}
-`;
-
-const Pagination = styled(BasePagination)`
-  padding: 20px 0;
+  padding: 20px;
 `;
 
 interface Props {
@@ -31,10 +32,6 @@ interface Props {
 }
 
 const TopArticles = ({ className, articles }: Props) => {
-  const onChange = (page: number) => {
-    console.log(page);
-  };
-
   return (
     <Paper className={className} elevation={2}>
       <Header>
@@ -46,8 +43,6 @@ const TopArticles = ({ className, articles }: Props) => {
           <Article {...el} key={el.id} />
         ))}
       </Container>
-
-      <Pagination onChange={onChange} total={10} />
     </Paper>
   );
 };

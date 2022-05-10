@@ -1,3 +1,9 @@
+/*
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
+ */
+
 import React from "react";
 import {
   Box,
@@ -10,7 +16,7 @@ import {
 } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Article as ArticleItem } from "../types";
+import { Article as ArticleItem } from "./types";
 import styled from "@emotion/styled";
 
 const IconStyles = {

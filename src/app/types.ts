@@ -4,14 +4,9 @@
  *  license that can be found in the LICENSE file.
  */
 
-import React from "react";
-
-export interface Route {
+export interface NavItem {
+  label: string;
   path: string;
-  meta: {
-    name: string;
-    index?: boolean;
-  };
-  // element: () => JSX.Element;
-  element: React.LazyExoticComponent<React.ComponentType<any>>;
 }
+
+export type Navs = NavItem[];

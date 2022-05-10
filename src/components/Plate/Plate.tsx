@@ -1,5 +1,10 @@
+/*
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
+ */
+
 import React from "react";
-import { Category, Tags } from "../types";
 import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 import styled from "@emotion/styled";
@@ -8,7 +13,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
 const Header = styled(Box)`
-  padding: 20px;
+  padding: 15px 20px;
 `;
 
 const ListWarp = styled(Box)`
@@ -22,12 +27,15 @@ const ListWarp = styled(Box)`
 `;
 
 interface Props {
-  list: Category | Tags;
+  list: {
+    id: number;
+    label: string;
+  }[];
   title: string;
   className?: string;
 }
 
-const FloatingPlate = ({ className, list, title }: Props) => {
+const Plate = ({ className, list, title }: Props) => {
   return (
     <Paper elevation={2} className={className}>
       <Header>
@@ -49,7 +57,7 @@ const FloatingPlate = ({ className, list, title }: Props) => {
   );
 };
 
-export default styled(FloatingPlate)`
+export default styled(Plate)`
   margin: 0 0 0 20px;
   max-width: 320px;
 `;

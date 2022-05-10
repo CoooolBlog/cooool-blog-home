@@ -1,16 +1,15 @@
 /*
- * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
- * Use of this source code is governed by a MIT style
- * license that can be found in the LICENSE file.
+ *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ *  Use of this source code is governed by a MIT style
+ *  license that can be found in the LICENSE file.
  */
 
-import React, {lazy, useState} from "react";
+import React, { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Navs} from "./types";
+import { Navs } from "./types";
 import Route from "../router/router";
-import {useNavigate} from "react-router-dom";
-
-const Header = lazy(() => import("./components/Header"));
+import { useNavigate } from "react-router-dom";
+import Header from "./components/Header";
 
 const useNavs = () => {
   const [navs] = useState<Navs>([
@@ -41,7 +40,7 @@ const useNavs = () => {
   };
 };
 
-const Layout = (): JSX.Element => {
+const App = () => {
   const { navs, navIndex, handleChangeNav } = useNavs();
 
   return (
@@ -57,4 +56,4 @@ const Layout = (): JSX.Element => {
   );
 };
 
-export default Layout;
+export default App;
