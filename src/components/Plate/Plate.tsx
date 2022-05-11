@@ -33,9 +33,10 @@ interface Props {
   }[];
   title: string;
   className?: string;
+  handleClick: (index: number) => void;
 }
 
-const Plate = ({ className, list, title }: Props) => {
+const Plate = ({ className, list, title, handleClick }: Props) => {
   return (
     <Paper elevation={2} className={className}>
       <Header>
@@ -43,10 +44,10 @@ const Plate = ({ className, list, title }: Props) => {
       </Header>
       <Divider />
       <ListWarp>
-        {list.map((el) => (
+        {list.map((el, index) => (
           <Chip
             onClick={() => {
-              console.log(el.label);
+              handleClick(index);
             }}
             label={el.label}
             key={el.id}

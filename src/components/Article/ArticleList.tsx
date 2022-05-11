@@ -14,10 +14,6 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 
-const styles = {
-  padding: "20px",
-};
-
 const Header = styled(Box)`
   padding: 15px 20px;
 `;
@@ -27,15 +23,16 @@ const Container = styled(Stack)`
 `;
 
 interface Props {
-  className?: string;
   articles: Articles;
+  title: string;
+  className?: string;
 }
 
-const TopArticles = ({ className, articles }: Props) => {
+const TopArticles = ({ className, articles, title }: Props) => {
   return (
     <Paper className={className} elevation={2}>
       <Header>
-        <Typography variant="h6">推荐文章</Typography>
+        <Typography variant="h6">{title}</Typography>
       </Header>
       <Divider />
       <Container spacing={2}>

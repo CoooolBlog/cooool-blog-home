@@ -4,7 +4,7 @@
  *  license that can be found in the LICENSE file.
  */
 
-import React, { useState, lazy } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import BaseWarp from "../../components/BaseWarp/BaseWarp";
 import Box from "@mui/material/Box";
@@ -83,7 +83,11 @@ const useCategory = () => {
     },
   ]);
 
-  return { category };
+  const handleClickCategory = (index: number) => {
+    console.log(index);
+  };
+
+  return { category, handleClickCategory };
 };
 
 const useTags = () => {
@@ -132,13 +136,17 @@ const useTags = () => {
     },
   ]);
 
-  return { tags };
+  const handleClickTag = (index: number) => {
+    console.log(index);
+  };
+
+  return { tags, handleClickTag };
 };
 
 const Index = () => {
   const { articles } = useArticles();
-  const { category } = useCategory();
-  const { tags } = useTags();
+  const { category, handleClickCategory } = useCategory();
+  const { tags, handleClickTag } = useTags();
   const sx = {
     display: {
       xs: "none",
@@ -148,10 +156,14 @@ const Index = () => {
 
   return (
     <BaseWarp>
-      <ArticleList articles={articles} />
+      <ArticleList title="推荐文章" articles={articles} />
       <ColumnWarp sx={sx}>
-        <Plate list={category} title={"推荐分类"} />
-        <Plate list={tags} title={"推荐标签"} />
+        <Plate
+          list={category}
+          title="推荐分类"
+          handleClick={handleClickCategory}
+        />
+        <Plate list={tags} title="推荐标签" handleClick={handleClickTag} />
       </ColumnWarp>
     </BaseWarp>
   );

@@ -9,7 +9,10 @@ import { Route, Routes } from "react-router-dom";
 import Index from "./routes";
 import Article from "./routes/article";
 import Error from "./routes/error";
-const routes = [...Index, ...Article, ...Error];
+import About from "./routes/about";
+
+// The Error Routes must be at the end.
+const routes = [...Index, ...Article, ...About, ...Error];
 
 const Router = () => {
   return (
