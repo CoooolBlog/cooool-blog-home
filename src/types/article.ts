@@ -9,6 +9,15 @@ export interface Article {
   label: string;
   createdTime: string;
   views: number;
+  detail: string;
 }
 
-export type Articles = Article[];
+export interface ArticleTag {
+  id: number;
+  label: string;
+}
+
+export interface ArticleCategory {
+  id: number;
+  label: string;
+}

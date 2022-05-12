@@ -4,10 +4,12 @@
  *  license that can be found in the LICENSE file.
  */
 
-import React from "react";
+'use strict';
+const { createHash } = require('crypto');
 
-const Index = () => {
-  return <div>hello</div>;
+module.exports = env => {
+  const hash = createHash('md5');
+  hash.update(JSON.stringify(env));
+
+  return hash.digest('hex');
 };
-
-export default Index;

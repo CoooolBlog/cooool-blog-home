@@ -4,12 +4,34 @@
  *  license that can be found in the LICENSE file.
  */
 
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import BaseWarp from "../../components/BaseWarp/BaseWarp";
 import Box from "@mui/material/Box";
-import Plate from "../../components/Plate/Plate";
-import ArticleList from "../../components/Article/ArticleList";
+import Chip from "@/components/Chip/Chip";
+import { Article, ArticleCategory, ArticleTag } from "@/types/article";
+import BasePaper from "@/components/Paper/Paper";
+import PaginationBase from "@/components/Pagination/Pagination";
+import List from "@/components/ArticleList/ArticleList";
+import { FlexRowBox } from "@/assets/style/box";
+import PaperMain from "@/components/Paper/PaperMain";
+import {
+  useArticleCategory,
+  useArticles,
+  useArticleTags,
+} from "@/utils/hooks/useArticle";
+
+const Pagination = styled(PaginationBase)`
+  padding: 20px;
+`;
+
+const ArticlesMain = styled(FlexRowBox)`
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 800px;
+`;
 
 const ColumnWarp = styled(Box)`
   display: flex;
@@ -18,135 +40,49 @@ const ColumnWarp = styled(Box)`
   gap: 30px 0;
 `;
 
-const useArticles = () => {
-  const [articles, setArticles] = useState([
-    {
-      id: 1,
-      label: "Golang",
-      createdTime: "2022-02-01",
-      views: 10,
-    },
-    {
-      id: 2,
-      label: "Java",
-      createdTime: "2022-02-01",
-      views: 20,
-    },
-  ]);
+const NavPaper = styled(BasePaper)`
+  margin: 0 0 0 20px;
+  max-width: 320px;
+`;
 
-  return { articles };
+interface ListProps {
+  articles: Article[];
+  handleClickPage(page: number): void;
+}
+
+const ArticleList = ({ articles, handleClickPage }: ListProps) => {
+  return (
+    <BasePaper label="推荐文章">
+      <ArticlesMain>
+        <List list={articles} />
+        <Pagination onChange={handleClickPage} total={2} />
+      </ArticlesMain>
+    </BasePaper>
+  );
 };
 
-const useCategory = () => {
-  const [category, setCategory] = useState([
-    {
-      id: 1,
-      label: "Java",
-    },
-    {
-      id: 2,
-      label: "Golang",
-    },
+interface NavPlateProps {
+  list: (ArticleCategory | ArticleTag)[];
+  handleClick: (item: ArticleCategory | ArticleTag) => void;
+  label: string;
+}
 
-    {
-      id: 3,
-      label: "Golang",
-    },
-    {
-      id: 4,
-      label: "JavaScript",
-    },
-    {
-      id: 5,
-      label: "Golang",
-    },
-    {
-      id: 6,
-      label: "Golang",
-    },
-
-    {
-      id: 7,
-      label: "Golang",
-    },
-    {
-      id: 8,
-      label: "JavaScript",
-    },
-    {
-      id: 9,
-      label: "Golang",
-    },
-    {
-      id: 10,
-      label: "Golang",
-    },
-  ]);
-
-  const handleClickCategory = (index: number) => {
-    console.log(index);
-  };
-
-  return { category, handleClickCategory };
-};
-
-const useTags = () => {
-  const [tags, setTags] = useState([
-    {
-      id: 1,
-      label: "Java",
-    },
-    {
-      id: 2,
-      label: "Golang",
-    },
-
-    {
-      id: 3,
-      label: "Golang",
-    },
-    {
-      id: 4,
-      label: "JavaScript",
-    },
-    {
-      id: 5,
-      label: "Golang",
-    },
-    {
-      id: 6,
-      label: "Golang",
-    },
-
-    {
-      id: 7,
-      label: "Golang",
-    },
-    {
-      id: 8,
-      label: "JavaScript",
-    },
-    {
-      id: 9,
-      label: "Golang",
-    },
-    {
-      id: 10,
-      label: "Golang",
-    },
-  ]);
-
-  const handleClickTag = (index: number) => {
-    console.log(index);
-  };
-
-  return { tags, handleClickTag };
+const NavPlate = ({ list, handleClick, label }: NavPlateProps) => {
+  return (
+    <NavPaper label={label}>
+      <PaperMain>
+        {list.map((el) => (
+          <Chip key={el.id} item={el} handleClick={handleClick} />
+        ))}
+      </PaperMain>
+    </NavPaper>
+  );
 };
 
 const Index = () => {
-  const { articles } = useArticles();
-  const { category, handleClickCategory } = useCategory();
-  const { tags, handleClickTag } = useTags();
+  const { articles, handleClickPage } = useArticles(1);
+  const { category, handleClickCategory } = useArticleCategory();
+  const { tags, handleClickTag } = useArticleTags();
   const sx = {
     display: {
       xs: "none",
@@ -156,14 +92,14 @@ const Index = () => {
 
   return (
     <BaseWarp>
-      <ArticleList title="推荐文章" articles={articles} />
+      <ArticleList articles={articles} handleClickPage={handleClickPage} />
       <ColumnWarp sx={sx}>
-        <Plate
+        <NavPlate
+          label="推荐分类"
           list={category}
-          title="推荐分类"
           handleClick={handleClickCategory}
         />
-        <Plate list={tags} title="推荐标签" handleClick={handleClickTag} />
+        <NavPlate label="推荐标签" list={tags} handleClick={handleClickTag} />
       </ColumnWarp>
     </BaseWarp>
   );

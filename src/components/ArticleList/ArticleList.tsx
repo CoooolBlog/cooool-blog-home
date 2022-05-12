@@ -11,27 +11,27 @@ import Box from "@mui/material/Box";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useNavigate } from "react-router-dom";
+import { FlexColumnBox, FlexRowBox } from "@/assets/style/box";
+import { Article } from "@/types/article";
 
-const Item = styled.div`
-  display: flex;
+const Item = styled(FlexRowBox)`
   justify-content: center;
   align-items: stretch;
-  padding: 20px;
+  margin: 10px 0;
+  padding: 10px 20px;
   height: 180px;
-`;
-
-const Link = styled.a`
-  flex: 30%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Img = styled.img`
+  flex: 30%;
   width: 100%;
   height: 100%;
 `;
 
-const ItemTextWarp = styled.div`
-  display: flex;
-  flex-direction: column;
+const ItemTextWarp = styled(FlexColumnBox)`
   justify-content: space-between;
   align-items: stretch;
   flex: 70%;
@@ -79,15 +79,8 @@ const useNav = () => {
   };
 };
 
-interface ArticleItem {
-  id: number;
-  label: string;
-  createdTime: string;
-  views: number;
-}
-
 interface Props {
-  list: ArticleItem[];
+  list: Article[];
 }
 
 const ArticleList = ({ list }: Props) => {
@@ -98,16 +91,11 @@ const ArticleList = ({ list }: Props) => {
       {list.map((el) => (
         <div onClick={() => handleRedirect(el.id)} key={el.id}>
           <Item>
-            <Link>
-              <Img src="https://mui.com/static/images/cards/contemplative-reptile.jpg" />
-            </Link>
+            <Img src="https://mui.com/static/images/cards/contemplative-reptile.jpg" />
+
             <ItemTextWarp>
               <div>{el.label}</div>
-              <Sub>
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
-              </Sub>
-
+              <Sub>{el.detail}</Sub>
               <Actions>
                 <Box
                   sx={{ display: "flex" }}
