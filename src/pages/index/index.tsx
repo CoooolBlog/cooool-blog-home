@@ -7,13 +7,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import BaseWarp from "../../components/BaseWarp/BaseWarp";
-import Box from "@mui/material/Box";
 import Chip from "@/components/Chip/Chip";
 import { Article, ArticleCategory, ArticleTag } from "@/types/article";
 import BasePaper from "@/components/Paper/Paper";
 import PaginationBase from "@/components/Pagination/Pagination";
 import List from "@/components/ArticleList/ArticleList";
-import { FlexRowBox } from "@/assets/style/box";
+import { FlexColumnBox, FlexRowBox } from "@/assets/style/box";
 import PaperMain from "@/components/Paper/PaperMain";
 import {
   useArticleCategory,
@@ -33,14 +32,9 @@ const ArticlesMain = styled(FlexRowBox)`
   max-width: 800px;
 `;
 
-const ColumnWarp = styled(Box)`
-  display: flex;
-  flex-direction: column;
+const ColumnWarp = styled(FlexColumnBox)`
   align-items: flex-start;
   gap: 30px 0;
-`;
-
-const NavPaper = styled(BasePaper)`
   margin: 0 0 0 20px;
   max-width: 320px;
 `;
@@ -69,13 +63,13 @@ interface NavPlateProps {
 
 const NavPlate = ({ list, handleClick, label }: NavPlateProps) => {
   return (
-    <NavPaper label={label}>
+    <BasePaper label={label}>
       <PaperMain>
         {list.map((el) => (
           <Chip key={el.id} item={el} handleClick={handleClick} />
         ))}
       </PaperMain>
-    </NavPaper>
+    </BasePaper>
   );
 };
 
@@ -93,7 +87,7 @@ const Index = () => {
   return (
     <BaseWarp>
       <ArticleList articles={articles} handleClickPage={handleClickPage} />
-      <ColumnWarp sx={sx}>
+      <ColumnWarp>
         <NavPlate
           label="推荐分类"
           list={category}

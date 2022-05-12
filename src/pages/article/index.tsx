@@ -23,6 +23,8 @@ import {
 const ColumnWarp = styled(FlexColumnBox)`
   align-items: flex-start;
   gap: 30px 0;
+  margin: 0 0 0 20px;
+  max-width: 320px;
 `;
 
 const Pagination = styled(PaginationBase)`
@@ -35,11 +37,6 @@ const ArticlesMain = styled(FlexRowBox)`
   flex-wrap: wrap;
   gap: 10px;
   max-width: 800px;
-`;
-
-const NavPaper = styled(BasePaper)`
-  margin: 0 0 0 20px;
-  max-width: 320px;
 `;
 
 interface ListProps {
@@ -66,13 +63,13 @@ interface NavPlateProps {
 
 const NavPlate = ({ list, handleClick, label }: NavPlateProps) => {
   return (
-    <NavPaper label={label}>
+    <BasePaper label={label}>
       <PaperMain>
         {list.map((el) => (
           <Chip key={el.id} item={el} handleClick={handleClick} />
         ))}
       </PaperMain>
-    </NavPaper>
+    </BasePaper>
   );
 };
 
