@@ -18,9 +18,6 @@ const Item = styled.div`
   align-items: stretch;
   padding: 20px;
   height: 180px;
-  "&:hover": {
-    cursor: pointer;
-  }
 `;
 
 const Link = styled.a`
