@@ -14,9 +14,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 
-const ColumnWarp = styled(Box)`
-  display: flex;
-  flex-direction: column;
+import { FlexColumnBox } from "../../assets/style/box";
+
+const ColumnWarp = styled(FlexColumnBox)`
   align-items: flex-start;
   gap: 30px 0;
 `;
