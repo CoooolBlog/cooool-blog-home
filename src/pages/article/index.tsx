@@ -4,172 +4,93 @@
  *  license that can be found in the LICENSE file.
  */
 
-import React, { useState } from "react";
-import BaseWarp from "../../components/BaseWarp/BaseWarp";
-import ArticleList from "../../components/List/List";
+import React from "react";
+import BaseWarp from "@/components/BaseWarp/BaseWarp";
 import styled from "@emotion/styled";
-import Box from "@mui/material/Box";
-import Plate from "../../components/Plate/Plate";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-
-import { FlexColumnBox } from "../../assets/style/box";
+import { FlexColumnBox, FlexRowBox } from "@/assets/style/box";
+import PaginationBase from "@/components/Pagination/Pagination";
+import Chip from "@/components/Chip/Chip";
+import { Article, ArticleCategory, ArticleTag } from "@/types/article";
+import PaperMain from "@/components/Paper/PaperMain";
+import BasePaper from "@/components/Paper/Paper";
+import List from "@/components/ArticleList/ArticleList";
+import {
+  useArticleCategory,
+  useArticles,
+  useArticleTags,
+} from "@/utils/hooks/useArticle";
 
 const ColumnWarp = styled(FlexColumnBox)`
   align-items: flex-start;
   gap: 30px 0;
 `;
 
-const Header = styled(Box)`
-  padding: 15px 20px;
+const Pagination = styled(PaginationBase)`
+  padding: 20px;
 `;
 
-const useArticles = () => {
-  const [articles, setArticles] = useState([
-    {
-      id: 1,
-      label: "Golang",
-      createdTime: "2022-02-01",
-      views: 10,
-    },
-    {
-      id: 2,
-      label: "Java",
-      createdTime: "2022-02-01",
-      views: 20,
-    },
-  ]);
+const ArticlesMain = styled(FlexRowBox)`
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 800px;
+`;
 
-  return { articles };
+const NavPaper = styled(BasePaper)`
+  margin: 0 0 0 20px;
+  max-width: 320px;
+`;
+
+interface ListProps {
+  articles: Article[];
+  handleClickPage(page: number): void;
+}
+
+const ArticleList = ({ articles, handleClickPage }: ListProps) => {
+  return (
+    <BasePaper label="推荐文章">
+      <ArticlesMain>
+        <List list={articles} />
+        <Pagination onChange={handleClickPage} total={2} />
+      </ArticlesMain>
+    </BasePaper>
+  );
 };
 
-const useCategory = () => {
-  const [category, setCategory] = useState([
-    {
-      id: 1,
-      label: "Java",
-    },
-    {
-      id: 2,
-      label: "Golang",
-    },
+interface NavPlateProps {
+  list: (ArticleCategory | ArticleTag)[];
+  handleClick: (item: ArticleCategory | ArticleTag) => void;
+  label: string;
+}
 
-    {
-      id: 3,
-      label: "Golang",
-    },
-    {
-      id: 4,
-      label: "JavaScript",
-    },
-    {
-      id: 5,
-      label: "Golang",
-    },
-    {
-      id: 6,
-      label: "Golang",
-    },
-
-    {
-      id: 7,
-      label: "Golang",
-    },
-    {
-      id: 8,
-      label: "JavaScript",
-    },
-    {
-      id: 9,
-      label: "Golang",
-    },
-    {
-      id: 10,
-      label: "Golang",
-    },
-  ]);
-
-  const handleClickCategory = (index: number) => {
-    console.log(index);
-  };
-
-  return { category, handleClickCategory };
-};
-
-const useTags = () => {
-  const [tags, setTags] = useState([
-    {
-      id: 1,
-      label: "Java",
-    },
-    {
-      id: 2,
-      label: "Golang",
-    },
-
-    {
-      id: 3,
-      label: "Golang",
-    },
-    {
-      id: 4,
-      label: "JavaScript",
-    },
-    {
-      id: 5,
-      label: "Golang",
-    },
-    {
-      id: 6,
-      label: "Golang",
-    },
-
-    {
-      id: 7,
-      label: "Golang",
-    },
-    {
-      id: 8,
-      label: "JavaScript",
-    },
-    {
-      id: 9,
-      label: "Golang",
-    },
-    {
-      id: 10,
-      label: "Golang",
-    },
-  ]);
-  const handleClickTag = (index: number) => {
-    console.log(index);
-  };
-
-  return { tags, handleClickTag };
+const NavPlate = ({ list, handleClick, label }: NavPlateProps) => {
+  return (
+    <NavPaper label={label}>
+      <PaperMain>
+        {list.map((el) => (
+          <Chip key={el.id} item={el} handleClick={handleClick} />
+        ))}
+      </PaperMain>
+    </NavPaper>
+  );
 };
 
 const Index = () => {
-  const { articles } = useArticles();
-  const { category, handleClickCategory } = useCategory();
-  const { tags, handleClickTag } = useTags();
+  const { articles, handleClickPage } = useArticles(1);
+  const { category, handleClickCategory } = useArticleCategory();
+  const { tags, handleClickTag } = useArticleTags();
 
   return (
     <BaseWarp>
-      <Paper sx={{ maxWidth: 800 }} elevation={2}>
-        <Header>
-          <Typography variant="h6">文章分类</Typography>
-        </Header>
-        <Divider />
-        <ArticleList list={articles} />
-      </Paper>
+      <ArticleList articles={articles} handleClickPage={handleClickPage} />
       <ColumnWarp>
-        <Plate
+        <NavPlate
+          label="推荐分类"
           list={category}
-          title="文章分类"
           handleClick={handleClickCategory}
         />
-        <Plate list={tags} title="文章标签" handleClick={handleClickTag} />
+        <NavPlate label="推荐标签" list={tags} handleClick={handleClickTag} />
       </ColumnWarp>
     </BaseWarp>
   );
