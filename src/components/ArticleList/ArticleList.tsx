@@ -1,7 +1,7 @@
 /*
- *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
- *  Use of this source code is governed by a MIT style
- *  license that can be found in the LICENSE file.
+ * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ * Use of this source code is governed by a MIT style
+ * license that can be found in the LICENSE file.
  */
 
 import React from "react";
@@ -10,23 +10,25 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useNavigate } from "react-router-dom";
-import { FlexColumnBox, FlexRowBox } from "@/assets/style/box";
-import { Article } from "@/types/article";
+import {useNavigate} from "react-router-dom";
+import {FlexColumnBox, FlexRowBox} from "@/assets/style/box";
+import {Article} from "@/types/article";
 
 const Item = styled(FlexRowBox)`
   justify-content: center;
   align-items: stretch;
   margin: 10px 0;
   padding: 10px 20px;
-  height: 180px;
   &:hover {
     cursor: pointer;
   }
 `;
 
+const ImgWarp = styled.div`
+  flex: 40%;
+`;
+
 const Img = styled.img`
-  flex: 30%;
   width: 100%;
   height: 100%;
 `;
@@ -34,7 +36,7 @@ const Img = styled.img`
 const ItemTextWarp = styled(FlexColumnBox)`
   justify-content: space-between;
   align-items: stretch;
-  flex: 70%;
+  flex: 60%;
   font-size: 20px;
   margin: 0 0 0 20px;
 `;
@@ -42,8 +44,13 @@ const ItemTextWarp = styled(FlexColumnBox)`
 const Sub = styled.div`
   font-size: 14px;
   color: #797c80;
-  overflow: hidden;
   line-height: 20px;
+  display: -webkit-box;
+  word-wrap : break-word;
+  -webkit-line-clamp: 3; // 设置显示行数
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  overflow : hidden;
 `;
 
 const Actions = styled(Sub)`
@@ -91,8 +98,9 @@ const ArticleList = ({ list }: Props) => {
       {list.map((el) => (
         <div onClick={() => handleRedirect(el.id)} key={el.id}>
           <Item>
-            <Img src="https://mui.com/static/images/cards/contemplative-reptile.jpg" />
-
+            <ImgWarp>
+              <Img src="https://mui.com/static/images/cards/contemplative-reptile.jpg" />
+            </ImgWarp>
             <ItemTextWarp>
               <div>{el.label}</div>
               <Sub>{el.detail}</Sub>

@@ -1,28 +1,29 @@
 /*
- *  Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
- *  Use of this source code is governed by a MIT style
- *  license that can be found in the LICENSE file.
+ * Copyright 2022 Kristian Huang <krishuang007@gmail.com>. All rights reserved.
+ * Use of this source code is governed by a MIT style
+ * license that can be found in the LICENSE file.
  */
 
 import React from "react";
-import Box from "@mui/material/Box";
 import styled from "@emotion/styled";
-import { Container } from "@mui/material";
-
-const RowWarp = styled(Box)`
-  margin: 30px 0;
-  display: flex;
-  align-items: flex-start;
-`;
+import {Container} from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
+  className?: string;
 }
 
-const BaseWarp = ({ children }: Props) => {
+const Main = styled.div`
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+const BaseWarp = ({ children, className }: Props) => {
   return (
     <Container>
-      <RowWarp>{children}</RowWarp>
+      <Main className={className}>{children}</Main>
     </Container>
   );
 };
